@@ -1,6 +1,6 @@
 function setup() 
 {
-  createCanvas(800, 800);
+  createCanvas(400, 400);
 }
 
 let moon = 0;
@@ -32,13 +32,23 @@ function drawMoon(phase)
   {
     fill(0);
     circle(centerX, centerY, moonDiameter);
+    push();
+    fill(155);
+    textSize(30);
+    text("New Moon", width/3, 385);
+    pop();
   }
   else if (phase > 1 && phase < 8)
   {
     fill(255, 255, 200);
     circle(centerX, centerY, moonDiameter);
     fill(0);
-    circle(centerX - ((25+phase)*phase), centerY, moonDiameter + (5*phase * phase));    
+    circle(centerX - ((25+phase)*phase), centerY, moonDiameter + (5*phase * phase));
+    push();
+    fill(155);
+    textSize(30);
+    text("Waxing Crescent", width/4, 385);
+    pop(); 
   }
   else if (phase == 8)
   {
@@ -51,8 +61,13 @@ function drawMoon(phase)
     vertex(centerX, centerY - moonDiameter);
     bezierVertex(centerX, centerY - moonDiameter, centerX - 2*moonDiameter, centerY, centerX, centerY + moonDiameter);
     endShape(CLOSE);
+    push();
+    fill(155);
+    textSize(30);
+    text("1st Quarter", width/3, 385);
+    pop();
   }
-  else if (phase > 8 && phase < 15)
+  else if (phase > 8 && phase < 16)
   {
     let growth = phase/2;
     fill(255, 255, 200);
@@ -64,13 +79,23 @@ function drawMoon(phase)
     vertex(centerX - phase, centerY + moonDiameter/2);
     bezierVertex(centerX - phase, centerY + 3*moonDiameter/4, centerX - 2*moonDiameter, centerY, centerX - growth*phase, centerY - 3*moonDiameter/4);
     endShape(CLOSE);
+    push();
+    fill(155);
+    textSize(30);
+    text("Waxing Gibbous", width/4, 385);
+    pop();
   }
-  else if (phase == 15)
+  else if (phase == 16)
   {
     fill(255, 255, 200);
     circle(centerX, centerY, moonDiameter);
+    push();
+    fill(155);
+    textSize(30);
+    text("Full Moon", width/3, 385);
+    pop();
   }
-  else if (phase > 15 && phase < 23)
+  else if (phase > 16 && phase < 23)
   {
     let growth = 14;
     for(let c = 14; c < phase; c++)
@@ -86,6 +111,12 @@ function drawMoon(phase)
     vertex(centerX + growth/2, centerY + moonDiameter/2);
     bezierVertex(centerX + growth/2, centerY + 3*moonDiameter/4, centerX + 2*moonDiameter, centerY, centerX + growth*4, centerY - 3*moonDiameter/4);
     endShape(CLOSE);
+    push();
+    fill(155);
+    textSize(30);
+    text("Waning Gibbous", width/4, 385);
+    pop();
+    
   }
   else if (phase == 23)
   {
@@ -98,29 +129,58 @@ function drawMoon(phase)
     vertex(centerX, centerY - moonDiameter);
     bezierVertex(centerX, centerY - moonDiameter, centerX + 2*moonDiameter, centerY, centerX, centerY + moonDiameter);
     endShape(CLOSE);
+    push();
+    fill(155);
+    textSize(30);
+    text("3rd Quarter", width/3, 385);
+    pop();
   }
   else if (phase > 23 && phase < 30)
   {
-      let growth = 2;
-      for (let c = 23; c < phase; c++)
-      {
-        growth += 1.5;
-      }
-      fill(255, 255, 200);
-      circle(centerX, centerY, moonDiameter);
-      fill(0);
-      beginShape();
-      vertex(centerX, centerY + 3 * moonDiameter/4);
-      bezierVertex(centerX, centerY + 3* moonDiameter/4, centerX - phase*growth, centerY, + centerX, centerY - 3 * moonDiameter/4);
-      vertex(centerX, centerY - 3*moonDiameter/4);
-      bezierVertex(centerX , centerY - 3*moonDiameter/4, centerX + 2*moonDiameter, centerY, centerX, centerY + 3*moonDiameter/4);
-      endShape(CLOSE);
+    let growth = 2;
+    for (let c = 23; c < phase; c++)
+    {
+      growth += 1.5;
+    }
+    fill(255, 255, 200);
+    circle(centerX, centerY, moonDiameter);
+    fill(0);
+    beginShape();
+    vertex(centerX, centerY + 3 * moonDiameter/4);
+    bezierVertex(centerX, centerY + 3* moonDiameter/4, centerX - phase*growth, centerY, + centerX, centerY - 3 * moonDiameter/4);
+    vertex(centerX, centerY - 3*moonDiameter/4);
+    bezierVertex(centerX , centerY - 3*moonDiameter/4, centerX + 2*moonDiameter, centerY, centerX, centerY + 3*moonDiameter/4);
+    endShape(CLOSE);
+    push();
+    fill(155);
+    textSize(30);
+    text("Waning Crescent", width/4, 385);
+    pop();
   }
+
+  fill(155);
+  square(0, 360, 40);
+  fill(0);
+  text("Prev", 10, 380);
+  fill(155);
+  square(360, 360, 40);
+  fill(0);
+  text("Next", 370, 380);
+
+  push();
+  fill(155);
+  textSize(30);
+  text("Phase " + phase, width/4, 30);
+  pop();
 }
 
 function phaseSelector()
 {
-  text("Select a moonphase:", width/3, 25);
+  push();
+  textSize(30);
+  fill(155);
+  text("Select a Phase of the Moon:", 10, 30);
+  pop();
   
   for(let ph = 1; ph < 31; ph++)
   {
@@ -185,11 +245,11 @@ function phaseSelector()
   }
   highlighted = (255, 255, 255);
   fill(highlighted);
-  text(moon, width/2, height/2);
 }
 
 function mousePressed()
 {
+  let anotherPhase = 0;
   if (mouseY > 40 && mouseY < 80)
   {
     moon = floor(1 + (mouseX / 40));
@@ -210,7 +270,32 @@ function mousePressed()
     selected = false;
   }
 
-  if (showMoon && moon != 0)
+  if (anotherPhase == 0 && showMoon && (mouseX < 40 || (mouseX < 400 && mouseX > 360)) && (mouseY > 360 && mouseY < 400))
+  {
+    if (mouseX < 40)
+    {
+      anotherPhase = moon - 1;
+      moon--;
+      if (anotherPhase != 0)
+      {drawMoon(anotherPhase);}
+      else
+      {
+        showMoon = false;
+        moon = 0;
+      }
+    }
+    else if (mouseX < 400 && mouseX > 360)
+    {
+      anotherPhase = moon + 1;
+      moon++;
+      if (anotherPhase <= 30)
+      {drawMoon(anotherPhase);}
+      else
+      {showMoon = false;
+      moon = 0;}
+    }
+  }
+  if (showMoon && anotherPhase == 0)
   {
     showMoon = false;
     moon = 0;
