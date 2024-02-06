@@ -309,3 +309,33 @@ function mouseReleased()
   selected = false;
 }
 
+function keyPressed()
+{
+  if (moon != 0)
+  {
+    if (keyCode === LEFT_ARROW)
+    {
+      anotherPhase = moon - 1;
+      moon--;
+      if (anotherPhase != 0)
+      {drawMoon(anotherPhase);}
+      else
+      {
+        showMoon = false;
+        moon = 0;
+      }
+    }
+    else if (keyCode === RIGHT_ARROW)
+    {
+      anotherPhase = moon + 1;
+      moon++;
+      if (anotherPhase <= 30)
+      {drawMoon(anotherPhase);}
+      else
+      {
+        showMoon = false;
+        moon = 0;
+      }
+    }
+  }
+}
