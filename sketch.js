@@ -3,21 +3,20 @@ function setup()
   createCanvas(400, 400);
 }
 
+//Declare global variables
 let moon = 0;
 let highlighted = (255, 255, 255);
 let selected = false;
-let showMoon = false;
 
 function draw() 
 {
   background(0);
-  if (!showMoon)
+  if (moon == 0)  //if we aren't showing the moon select a phase.
   {
     phaseSelector();
   }
-  if (moon > 0 && moon < 31)
+  if (moon > 0 && moon < 31)  //if a phase was selected pass it to the draw moon function.
   {
-    showMoon = true;
     drawMoon(moon);
   }
 }
@@ -175,7 +174,7 @@ function drawMoon(phase)
 }
 
 function phaseSelector()
-{
+{     //draw the buttons to select a moon phase
   push();
   textSize(30);
   fill(155);
@@ -185,11 +184,11 @@ function phaseSelector()
   for(let ph = 1; ph < 31; ph++)
   {
 
-    if (ph < 11)
+    if (ph < 11) //for the first row of buttons(the first 10)
     {
       if (mouseX > ((40 * ph)- 40) && mouseX < (40 * ph) && mouseY > 40 && mouseY < 80)
       {
-        highlighted = color(255, 0, 0);
+        highlighted = color(255, 0, 0); //if the mouse is hovering over a button change that button to red
         if (selected)
         {
           highlighted = color(0, 0, 255);
@@ -199,16 +198,16 @@ function phaseSelector()
       {
         highlighted = color(255, 255, 255);
       }
-      fill(highlighted);
+      fill(highlighted);    //fill with white or red, then draw the square and write the phase #
       square((40 * ph - 40), 40, 40);
       fill(0, 0, 0);
       text(ph, 40 * ph - 25, 65);
     }
-    else if (ph < 21)
+    else if (ph < 21) //for the second row of squares
     {
       if (mouseX > ((40 * (ph - 10)) - 40) && mouseX < (40 * (ph - 10)) && mouseY > 80 && mouseY < 120)
       {
-        highlighted = color(255, 0, 0);
+        highlighted = color(255, 0, 0); //set coolor to red if mouse is hovering over it
         if (selected)
         {
           highlighted = color(0, 0, 255);
@@ -218,12 +217,12 @@ function phaseSelector()
       {
         highlighted = color(255, 255, 255);
       }
-      fill(highlighted);
+      fill(highlighted);  //fill with white or red, then draw the square and write the phase #
       square((40 * (ph - 10) - 40), 80, 40);
       fill(0, 0, 0);
       text(ph, 40 * (ph - 10) - 25, 105);
     }
-    else
+    else    //if not the first or second row of squares then it's the third row. Which is the same.
     {
       if (mouseX > ((40 * (ph - 20)) - 40) && mouseX < (40 * (ph - 20)) && mouseY > 120 && mouseY < 160)
       {
@@ -270,7 +269,7 @@ function mousePressed()
     selected = false;
   }
 
-  if (anotherPhase == 0 && showMoon && (mouseX < 40 || (mouseX < 400 && mouseX > 360)) && (mouseY > 360 && mouseY < 400))
+  if (anotherPhase == 0 && moon > 0 && (mouseX < 40 || (mouseX < 400 && mouseX > 360)) && (mouseY > 360 && mouseY < 400))
   {
     if (mouseX < 40)
     {
@@ -280,7 +279,6 @@ function mousePressed()
       {drawMoon(anotherPhase);}
       else
       {
-        showMoon = false;
         moon = 0;
       }
     }
@@ -294,11 +292,6 @@ function mousePressed()
       {showMoon = false;
       moon = 0;}
     }
-  }
-  if (showMoon && anotherPhase == 0)
-  {
-    showMoon = false;
-    moon = 0;
   }
 
   return false;
@@ -321,7 +314,6 @@ function keyPressed()
       {drawMoon(anotherPhase);}
       else
       {
-        showMoon = false;
         moon = 0;
       }
     }
@@ -333,7 +325,6 @@ function keyPressed()
       {drawMoon(anotherPhase);}
       else
       {
-        showMoon = false;
         moon = 0;
       }
     }
