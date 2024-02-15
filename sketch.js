@@ -1,6 +1,6 @@
 function setup() 
 {
-  createCanvas(400, 400);
+  createCanvas(800, 800); //canvas needs to be square
 }
 
 //Declare global variables
@@ -23,7 +23,7 @@ function draw()
 
 function drawMoon(phase) 
 {
-  let moonDiameter = 300;
+  let moonDiameter = 3*width/4;
   let centerX = width / 2;
   let centerY = height / 2;
 
@@ -33,8 +33,8 @@ function drawMoon(phase)
     circle(centerX, centerY, moonDiameter);
     push();
     fill(155);
-    textSize(30);
-    text("New Moon", width/3, 385);
+    textSize(3*height/40);
+    text("New Moon", width/3, height - (15*height/400));
     pop();
   }
   else if (phase > 1 && phase < 8)
@@ -45,8 +45,8 @@ function drawMoon(phase)
     circle(centerX - ((25+phase)*phase), centerY, moonDiameter + (5*phase * phase));
     push();
     fill(155);
-    textSize(30);
-    text("Waxing Crescent", width/4, 385);
+    textSize(3*height/40);
+    text("Waxing Crescent", width/4, height - (15*height/400));
     pop(); 
   }
   else if (phase == 8)
@@ -62,8 +62,8 @@ function drawMoon(phase)
     endShape(CLOSE);
     push();
     fill(155);
-    textSize(30);
-    text("1st Quarter", width/3, 385);
+    textSize(3*height/40);
+    text("1st Quarter", width/3, height - (15*height/400));
     pop();
   }
   else if (phase > 8 && phase < 16)
@@ -80,8 +80,8 @@ function drawMoon(phase)
     endShape(CLOSE);
     push();
     fill(155);
-    textSize(30);
-    text("Waxing Gibbous", width/4, 385);
+    textSize(3*height/40);
+    text("Waxing Gibbous", width/4, height - (15*height/400));
     pop();
   }
   else if (phase == 16)
@@ -90,8 +90,8 @@ function drawMoon(phase)
     circle(centerX, centerY, moonDiameter);
     push();
     fill(155);
-    textSize(30);
-    text("Full Moon", width/3, 385);
+    textSize(3*height/40);
+    text("Full Moon", width/3, height - (15*height/400));
     pop();
   }
   else if (phase > 16 && phase < 23)
@@ -112,8 +112,8 @@ function drawMoon(phase)
     endShape(CLOSE);
     push();
     fill(155);
-    textSize(30);
-    text("Waning Gibbous", width/4, 385);
+    textSize(3*height/40);
+    text("Waning Gibbous", width/4, height - (15*height/400));
     pop();
     
   }
@@ -130,8 +130,8 @@ function drawMoon(phase)
     endShape(CLOSE);
     push();
     fill(155);
-    textSize(30);
-    text("3rd Quarter", width/3, 385);
+    textSize(3*height/40);
+    text("3rd Quarter", width/3, height - (15*height/400));
     pop();
   }
   else if (phase > 23 && phase < 30)
@@ -152,33 +152,34 @@ function drawMoon(phase)
     endShape(CLOSE);
     push();
     fill(155);
-    textSize(30);
-    text("Waning Crescent", width/4, 385);
+    textSize(3*height/40);
+    text("Waning Crescent", width/4, height - (15*height/400))
     pop();
   }
 
   fill(155);
-  square(0, 360, 40);
+  square(0, 9*height/10, height/10);
+  textSize(width/40);
   fill(0);
-  text("Prev", 10, 380);
+  text("Prev", width/40, 19*height/20);
   fill(155);
-  square(360, 360, 40);
+  square(9*width/10, 9*height/10, height/10);
   fill(0);
-  text("Next", 370, 380);
+  text("Next", width - 3*width/40, height - height/20);
 
   push();
   fill(155);
-  textSize(30);
-  text("Phase " + phase, width/4, 30);
+  textSize(3*height/40);
+  text("Phase " + phase, width/3, 3*height/40);
   pop();
 }
 
 function phaseSelector()
 {     //draw the buttons to select a moon phase
   push();
-  textSize(30);
+  textSize(3*height/40);
   fill(155);
-  text("Select a Phase of the Moon:", 10, 30);
+  text("Select a Phase of the Moon:", width/40, 3*height/40);
   pop();
   
   for(let ph = 1; ph < 31; ph++)
@@ -186,7 +187,7 @@ function phaseSelector()
 
     if (ph < 11) //for the first row of buttons(the first 10)
     {
-      if (mouseX > ((40 * ph)- 40) && mouseX < (40 * ph) && mouseY > 40 && mouseY < 80)
+      if (mouseX > ((width/10 * ph)- width/10) && mouseX < (width/10 * ph) && mouseY > height/10 && mouseY < 2*height/10)
       {
         highlighted = color(255, 0, 0); //if the mouse is hovering over a button change that button to red
         if (selected)
@@ -199,13 +200,13 @@ function phaseSelector()
         highlighted = color(255, 255, 255);
       }
       fill(highlighted);    //fill with white or red, then draw the square and write the phase #
-      square((40 * ph - 40), 40, 40);
+      square((width/10 * ph - width/10), height/10, width/10);
       fill(0, 0, 0);
-      text(ph, 40 * ph - 25, 65);
+      text(ph, width/10 * ph - width/16, 13*height/80);
     }
     else if (ph < 21) //for the second row of squares
     {
-      if (mouseX > ((40 * (ph - 10)) - 40) && mouseX < (40 * (ph - 10)) && mouseY > 80 && mouseY < 120)
+      if (mouseX > ((width/10 * (ph - 10)) - width/10) && mouseX < (width/10 * (ph - 10)) && mouseY > height/5 && mouseY < 3*height/10)
       {
         highlighted = color(255, 0, 0); //set coolor to red if mouse is hovering over it
         if (selected)
@@ -218,13 +219,13 @@ function phaseSelector()
         highlighted = color(255, 255, 255);
       }
       fill(highlighted);  //fill with white or red, then draw the square and write the phase #
-      square((40 * (ph - 10) - 40), 80, 40);
+      square((width/10 * (ph - 10) - width/10), width/5, height/10);
       fill(0, 0, 0);
-      text(ph, 40 * (ph - 10) - 25, 105);
+      text(ph, width/10 * (ph - 10) - width/16, 21*height/80);
     }
     else    //if not the first or second row of squares then it's the third row. Which is the same.
     {
-      if (mouseX > ((40 * (ph - 20)) - 40) && mouseX < (40 * (ph - 20)) && mouseY > 120 && mouseY < 160)
+      if (mouseX > ((width/10 * (ph - 20)) - 40) && mouseX < (width/10 * (ph - 20)) && mouseY > 3*height/10 && mouseY < 2*height/5)
       {
         highlighted = color(255, 0, 0);
         if (selected)
@@ -237,9 +238,9 @@ function phaseSelector()
         highlighted = color(255, 255, 255);
       }
       fill(highlighted);
-      square((40 * (ph - 20) - 40), 120, 40);
+      square((width/10 * (ph - 20) - width/10), 3*width/10, height/10);
       fill(0,0,0);
-      text(ph, 40 * (ph - 20) - 25, 145);
+      text(ph, width/10 * (ph - 20) - width/16, 29*height/80);
     }
   }
   highlighted = (255, 255, 255);
@@ -249,19 +250,19 @@ function phaseSelector()
 function mousePressed()
 {
   let anotherPhase = 0;
-  if (mouseY > 40 && mouseY < 80)
+  if (mouseY > height/10 && mouseY < height/5)
   {
-    moon = floor(1 + (mouseX / 40));
+    moon = floor(1 + (mouseX / width/10));
     selected = true;
   }
-  else if (mouseY > 80 && mouseY < 120)
+  else if (mouseY > height/5 && mouseY < 3*height/10)
   {
-    moon = 11 + floor(mouseX / 40);
+    moon = 11 + floor(mouseX / width/10);
     selected = true;
   }
-  else if (mouseY > 120 && mouseY < 160)
+  else if (mouseY > 3*height/10 && mouseY < 2*height/5)
   {
-    moon = floor(21 + (mouseX / 40));
+    moon = floor(21 + (mouseX / width/10));
     selected = true;
   }
   else
@@ -269,9 +270,9 @@ function mousePressed()
     selected = false;
   }
 
-  if (anotherPhase == 0 && moon > 0 && (mouseX < 40 || (mouseX < 400 && mouseX > 360)) && (mouseY > 360 && mouseY < 400))
+  if (anotherPhase == 0 && moon > 0 && (mouseX < width/10 || (mouseX < width && mouseX > 9*width/10)) && (mouseY > 9*height/10 && mouseY < height))
   {
-    if (mouseX < 40)
+    if (mouseX < width/10)
     {
       anotherPhase = moon - 1;
       moon--;
@@ -282,7 +283,7 @@ function mousePressed()
         moon = 0;
       }
     }
-    else if (mouseX < 400 && mouseX > 360)
+    else if (mouseX < width && mouseX > 9*width/10)
     {
       anotherPhase = moon + 1;
       moon++;
